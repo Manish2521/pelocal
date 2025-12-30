@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Pelocal{% endblock %}
+
+{% block content %}
+<h2>Add Task</h2>
+
+<form method="post" action="/tasks/create" class="task-form" onsubmit="showLoader()">
+    <label>Title</label>
+    <input name="title" required>
+
+    <label>Description</label>
+    <textarea name="description"></textarea>
+
+    <button type="submit" id="submitBtn" class="btn btn-primary">
+        <span id="btnText">Save Task</span>
+        <span id="loader" class="loader" style="display:none;"></span>
+    </button>
+</form>
+
+<script>
+function showLoader() {
+    const btn = document.getElementById("submitBtn");
+    document.getElementById("btnText").style.display = "none";
+    document.getElementById("loader").style.display = "inline-block";
+    btn.disabled = true;
+}
+</script>
+{% endblock %}

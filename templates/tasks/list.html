@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Pelocal{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Task List</h2>
+    <a href="/tasks/add" class="btn btn-primary">+ Add Task</a>
+</div>
+
+<div class="table-wrapper">
+<table class="task-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if tasks %}
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task[1] }}</td>
+
+
+            <td class="desc" title="{{ task[2] }}">
+                {{ task[2] if task[2] and task[2]|length < 40 else task[2][:40] ~ '...' if task[2] }}
+            </td>
+
+            <td>
+                <span class="status {{ task[4] }}">
+                    {{ task[4] }}
+                </span>
+            </td>
+
+            <td class="actions">
+                <a href="/tasks/edit/{{ task[0] }}" class="btn btn-small btn-primary">Edit</a>
+
+
+
+
+            <input type="checkbox" id="delete-{{ task[0] }}" class="modal-toggle" />
+
+
+            <label for="delete-{{ task[0] }}" class="btn btn-small btn-danger">
+                Delete
+            </label>
+
+
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Delete Task</h3>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete "<strong>{{ task[1] }}</strong>"?
+                    </div>
+                    <div class="modal-actions">
+                        <label for="delete-{{ task[0] }}" class="btn btn-cancel">Cancel</label>
+                        <a href="/tasks/delete/{{ task[0] }}" class="btn btn-delete">Delete</a>
+                    </div>
+                </div>
+            </div>
+            </td>
+        </tr>
+    {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4" style="text-align:center; font-style:italic;">
+                Add task
+            </td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

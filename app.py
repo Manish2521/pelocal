@@ -29,9 +29,9 @@ def tasks():
 
     user_ip = get_user_ip()
     current_time = get_current_ist_time()
-
+    print("-----------------------------------------------------------------------------------------")
     logging.info("Tasks page accessed | User IP: %s | Time (IST): %s", user_ip, current_time)
-
+    print("-----------------------------------------------------------------------------------------")
     conn = db.get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM tasks")
@@ -62,7 +62,7 @@ def create_task():
 
         user_ip = get_user_ip()
         current_time = get_current_ist_time()
-
+        print("------------------------------------------------------------------------------------------------------------------------------")
         logging.info(
             "Task created from UI | Title: '%s' | Description: '%s' | Time (IST): %s | User IP: %s",
             title,
@@ -70,6 +70,7 @@ def create_task():
             current_time,
             user_ip
         )
+        print("------------------------------------------------------------------------------------------------------------------------------")
         return redirect(url_for("tasks"))
 
     except Exception as e:
